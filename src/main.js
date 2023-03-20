@@ -1,4 +1,17 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import {createRouter, createWebHashHistory} from "vue-router";
+import ItemList from "./components/Signup.vue"
 
-createApp(App).mount('#app')
+const myComponentRoutes = [
+    { path: "/itemlist", component: ItemList }
+    // { path: "/", component: },
+    // { path: "/", component:  },
+    // { path: "/", component: }
+];
+
+const myRouter = createRouter({routes: myComponentRoutes, history: createWebHashHistory()});
+
+createApp(App)
+    .use(myRouter)
+    .mount('#app')
