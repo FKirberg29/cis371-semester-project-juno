@@ -14,17 +14,14 @@
   </div>
 </template>
 
-<script>
-
-export default {
-  props: {
-    icon: {
-      type: String,
-      required: true
-    }
-  }
-
+<script setup lang="ts">
+type NavbarProp = {
+    icon: string
 }
+const props = withDefaults(defineProps<NavbarProp>(),
+      {
+         icon: "",
+      })
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
