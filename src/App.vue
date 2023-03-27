@@ -6,7 +6,7 @@
 <router-view></router-view>
 </template>
 
-<script>
+<script setup lang="ts">
 import Navbar from './components/Navbar.vue';
 import icon from './assets/icon.png';
 import { useRouter } from "vue-router";
@@ -14,21 +14,6 @@ import { useRouter } from "vue-router";
 const router = useRouter()
 
 
-
-
-export default {
-  components: {
-    Navbar
-  },
-
-
-  data() {
-    return {
-      icon: icon
-    }
-  }
-
-}
 </script>
 
 <style>
