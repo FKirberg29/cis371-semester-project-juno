@@ -3,6 +3,8 @@
 <Navbar :icon="icon" />
 <hr>
 <RouterLink to="/itemlist">Item List</RouterLink>
+<RouterLink to="/login">Login Page</RouterLink>
+<RouterLink to="/signup">Sign Up Page</RouterLink>
 <router-view></router-view>
 </template>
 
