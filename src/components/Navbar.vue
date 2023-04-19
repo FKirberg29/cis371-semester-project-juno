@@ -1,27 +1,60 @@
 <template>
-  <div class ="navbar">
+  <div class="navbar">
     <div class="navbar-logo">
       <img :src="icon" alt="icon">
     </div>
 
     <div class="nav-menu">
       <ul>
-        <li><b>Products</b></li>
-        <li><b>About Us</b></li>
-        <li><b>Contact</b></li>  
+        <li><b>Home</b></li>
+        <li><RouterLink to="/itemlist"><b>Products</b></RouterLink></li>
+        <li @click="() => showModal('login')"><b>Login</b></li>
+        <li @click="() => showModal('signup')"><b>Sign up</b></li>
       </ul>
+    </div>
+  </div>
+  <div class="modal" v-if="modal.show" @click="hideModal">
+    <div class="modal-content" @click.stop>
+      <button class="close-btn" @click="hideModal">X</button>
+      <Login v-if="modal.type === 'login'" />
+      <SignUp v-else />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
+import { ref } from 'vue';
+import Login from '../components/Login.vue';
+import SignUp from '../components/SignUp.vue';
+
+
+
+const modal = ref({
+  show: false,
+  type: '' // 'login' or 'signup'
+});
+
+
 type NavbarProp = {
     icon: string
 }
+
 const props = withDefaults(defineProps<NavbarProp>(),
       {
          icon: "",
       })
+
+const showModal = (type) => {
+  modal.value.show = true;
+  modal.value.type = type;
+};
+
+const hideModal = () => {
+  modal.value.show = false;
+};
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -85,5 +118,42 @@ const props = withDefaults(defineProps<NavbarProp>(),
     font-size: 20px;
     }
 }
+
+li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  position: relative;
+  min-width: 400px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 
 </style>
