@@ -10,7 +10,7 @@
         <li><router-link to="/itemlist"><b>Products</b></router-link></li>
         <li @click="() => showModal('login')"><b>Login</b></li>
         <li @click="() => showModal('signup')"><b>Sign up</b></li>
-        <li><img :src="cart" alt="icon"></li>
+        <li><router-link to="/Checkout"><img :src="cart" alt="icon"></router-link></li>
       </ul>
     </div>
   </div>
@@ -22,6 +22,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script setup lang="ts">

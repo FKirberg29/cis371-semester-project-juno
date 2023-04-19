@@ -35,11 +35,11 @@
   </div>
 
 
-
 </template>
   
 <script>
 import Card from './Card.vue';
+import Footer from './Footer.vue';
 
 export default {
   name: 'Home',
