@@ -10,6 +10,7 @@
         <li><router-link to="/itemlist"><b>Products</b></router-link></li>
         <li @click="() => showModal('login')"><b>Login</b></li>
         <li @click="() => showModal('signup')"><b>Sign up</b></li>
+        <li><img :src="cart" alt="icon"></li>
       </ul>
     </div>
   </div>
@@ -39,11 +40,13 @@ const modal = ref({
 
 type NavbarProp = {
     icon: string
+    cart: string
 }
 
 const props = withDefaults(defineProps<NavbarProp>(),
       {
          icon: "",
+         cart: "",
       })
 
 const showModal = (type) => {
@@ -90,6 +93,7 @@ const hideModal = () => {
 .nav-menu ul li:hover {
   position: relative;
   cursor: pointer;
+  color: #000;
 }
 
 .nav-menu ul li::after {
@@ -119,6 +123,17 @@ const hideModal = () => {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      height: auto;
+    }
+    .nav-menu {
+    width: 80%;
+    padding: 0 20px;
+    font-size: 14px;
+    }
+}
 li a {
   color: inherit;
   text-decoration: none;

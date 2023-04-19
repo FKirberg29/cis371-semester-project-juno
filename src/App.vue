@@ -1,13 +1,15 @@
 <template>
 
-<Navbar :icon="icon" />
+<Navbar :icon="icon" :cart="cart"/>
 <hr>
 <RouterView></RouterView>
+
 </template>
 
 <script setup lang="ts">
 import Navbar from './components/Navbar.vue';
 import icon from './assets/icon.png';
+import cart from './assets/cart.png';
 import { useRouter } from "vue-router";
 
 
