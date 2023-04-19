@@ -2,7 +2,7 @@
 
 <Navbar :icon="icon" />
 <hr>
-
+<RouterView></RouterView>
 </template>
 
 <script setup lang="ts">
@@ -16,5 +16,7 @@ import { useRouter } from "vue-router";
 </script>
 
 <style>
-
+body {
+  font-family: 'Comfortaa', cursive;
+}
 </style>

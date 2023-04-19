@@ -6,8 +6,8 @@
 
     <div class="nav-menu">
       <ul>
-        <li><b>Home</b></li>
-        <li><RouterLink to="/itemlist"><b>Products</b></RouterLink></li>
+        <li><router-link to="/"><b>Home</b></router-link></li>
+        <li><router-link to="/itemlist"><b>Products</b></router-link></li>
         <li @click="() => showModal('login')"><b>Login</b></li>
         <li @click="() => showModal('signup')"><b>Sign up</b></li>
       </ul>
@@ -21,6 +21,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
@@ -84,7 +85,6 @@ const hideModal = () => {
   justify-content: space-between;
   align-items: center;
   list-style: none;
-  font-family: 'Kanit', sans-serif;
 }
 
 .nav-menu ul li:hover {

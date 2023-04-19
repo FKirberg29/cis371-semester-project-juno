@@ -23,12 +23,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+import Home from './components/Home.vue';
+
 const myComponentRoutes = [
-    { path: "/itemlist", component: ItemList },
-    { path: "/login", component: LoginVue},
-    { path: "/signup", component: SignUpVue },
-    // { path: "/", component: }
+  { path: '/', component: Home },
+  { path: '/itemlist', component: ItemList },
+  { path: '/login', component: LoginVue},
+  { path: '/signup', component: SignUpVue },
 ];
+
 
 const myRouter = createRouter({routes: myComponentRoutes, history: createWebHashHistory()});
 
