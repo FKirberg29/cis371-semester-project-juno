@@ -32,27 +32,16 @@
     </Modal>
   </div>
   
-  <Footer />
+  <!-- <Footer /> -->
 </template>
 
 <script>
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getProducts } from '../firebase';
 import Card from './Card.vue';
 import Modal from './Modal.vue';
 import Footer from './Footer.vue';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyACHfAYEzjUFhSqT7QJV1EAW1Jx7x2Jqwc",
-  authDomain: "cis371-semester-project-b860c.firebaseapp.com",
-  projectId: "cis371-semester-project-b860c",
-  storageBucket: "cis371-semester-project-b860c.appspot.com",
-  messagingSenderId: "685988760069",
-  appId: "1:685988760069:web:b1b374cdee9086dc5cea6c"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 export default {
   name: 'Home',
@@ -60,6 +49,10 @@ export default {
     Card,
     Modal,
     Footer,
+  },
+  created() {
+    // console.log(getProducts());
+    // const list = getProducts();
   },
   data() {
     return {

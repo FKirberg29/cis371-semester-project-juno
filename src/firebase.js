@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { ref } from 'vue';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, doc, setDoc, getDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, getDoc, getDocs } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyACHfAYEzjUFhSqT7QJV1EAW1Jx7x2Jqwc",
@@ -19,6 +19,34 @@ const auth = getAuth();
 const db = getFirestore();
 
 const cart = ref([]);
+
+async function getProducts() {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    const arrayOfProducts = [];
+    querySnapshot.forEach((doc) => {
+      //doc.data() is never undefined for query doc snapshots
+      var id = doc.get("ID")
+      var image = doc.get("image")
+      var text = doc.get("text")
+      var description = doc.get("description")
+      var price = doc.get("price")
+
+      let product = {
+          id: id,
+          image: image,
+          text: text,
+          description: description,
+          price: price
+      }
+      arrayOfProducts.push(product)
+    });
+
+    // for (let i = 0; i < arrayOfProducts.length; i++) {
+    //   console.log(arrayOfProducts[i])
+    // }
+
+    return arrayOfProducts;
+  }
 
 async function getUserCart(userId) {
     const cartRef = doc(db, 'carts', userId);
@@ -46,4 +74,4 @@ async function getUserCart(userId) {
     }
   });
   
-  export { auth, db, cart, getUserCart, saveUserCart };
+  export { auth, db, cart, getUserCart, saveUserCart, getProducts };
