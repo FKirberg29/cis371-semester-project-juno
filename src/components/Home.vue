@@ -25,7 +25,7 @@
 
   <div class="section-container">
     <div class="left-section">
-<h1>Add some marketing text here</h1>
+    <h1>Discover our organic products today!</h1>
 
     </div>
     <div class="right-section">
@@ -33,8 +33,31 @@
       <h1> Healthy Decisions start with eating Healthy Foods.</h1>
     </div>
   </div>
+  <hr>
+
+  <div class="title-baner">
+
+    <h1>We've got all your bases covered.</h1>
+  </div>
+
+  <div class="divider-container">
+  <div class="divider">
+    <img src="src/assets/organic.gif" alt="Image 1" class="divider-image">
+    <div class="divider-text">USA Certified</div>
+  </div>
+  <div class="divider">
+    <img src="src/assets/canada.png" alt="Image 2" class="divider-image">
+    <div class="divider-text">Canada Certified</div>
+  </div>
+  <div class="divider">
+    <img src="src/assets/mexico.png" alt="Image 3" class="divider-image">
+    <div class="divider-text">Mexico Certified</div>
+  </div>
+</div>
 
 
+  <Footer />
+  
 </template>
   
 <script>
@@ -45,6 +68,7 @@ export default {
   name: 'Home',
   components: {
     Card,
+    Footer,
   },
   data() {
     return {
@@ -182,10 +206,10 @@ export default {
   width: 50%;
   height: 100%;
   background-color: white;
+  text-align: center;
 }
 
 .right-section {
-
   width: 50%;
   height: 100%;
   background-color: #98d485;
@@ -198,6 +222,73 @@ export default {
   color: white;
 }
 
+.left-section h1 {
+  padding-top: 100px;
+}
+.title-baner {
+
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+hr {
+  background-color: black;
+  height: 2px;
+  border: none;
+  width: 80%;
+  margin: 20px auto;
+}
+
+
+
+.title-baner h1 {
+  color: black;
+  font-size: 48px;
+  text-align: center;
+}
+
+
+.divider-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.divider {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 4px;
+
+  margin: 5px;
+  overflow: hidden; 
+  margin-bottom: 50px;
+  margin-top: 10px;
+}
+
+.divider-image {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+}
+
+.divider-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
 
 
 </style>

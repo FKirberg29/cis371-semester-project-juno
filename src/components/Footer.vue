@@ -1,7 +1,7 @@
 <template>
     <footer class="footer">
       <div class="footer-content">
-        <p>&copy; 2023 Example Company. All rights reserved.</p>
+        <p>&copy; 2023 Juno Company. All rights reserved.</p>
         <nav class="footer-nav">
           <a href="#">Terms of Use</a>
           <a href="#">Privacy Policy</a>
@@ -18,13 +18,11 @@
   
   <style scoped>
   .footer {
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
     color: #777;
     padding: 30px 0;
     text-align: center;
     font-size: 14px;
-    position: absolute;
-    bottom: 0;
     width: 100%;
   }
   
@@ -34,6 +32,7 @@
     justify-content: space-between;
     max-width: 960px;
     margin: 0 auto;
+    margin-top: auto;
   }
   
   .footer-nav a {
@@ -46,4 +45,5 @@
     text-decoration: underline;
   }
   </style>
+  
   
