@@ -5,11 +5,13 @@
     const router = useRouter()
     const email = ref("");
     const password = ref("");
+    const emits = defineEmits(['authenticated']);
 
     const register = () => {
         createUserWithEmailAndPassword(getAuth(), email.value, password.value)
             .then((data) => {
                 console.log("User registered successfully")
+                emits('authenticated');
                 router.push("/")
             })
             .catch((error) => {

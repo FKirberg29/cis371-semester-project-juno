@@ -18,8 +18,8 @@
   <div class="modal" v-if="modal.show" @click="hideModal">
     <div class="modal-content" @click.stop>
       <button class="close-btn" @click="hideModal">X</button>
-      <Login v-if="modal.type === 'login'" />
-      <SignUp v-else />
+      <Login v-if="modal.type === 'login'" v-on:authenticated="hideModal"/>
+      <SignUp v-else v-on:authenticated="hideModal" />
     </div>
   </div>
 </template>

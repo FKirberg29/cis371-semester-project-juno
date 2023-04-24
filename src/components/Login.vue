@@ -2,15 +2,17 @@
     import { ref } from "vue";
     import { getAuth, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
     import { useRouter } from "vue-router";
-    const router = useRouter()
+    const router = useRouter();
     const email = ref("");
     const password = ref("");
-    const errorMessage = ref()
+    const errorMessage = ref();
+    const emits = defineEmits(['authenticated']);
 
     const register = () => {
         signInWithEmailAndPassword(getAuth(), email.value, password.value)
             .then((data) => {
                 console.log("User logged in successfully")
+                emits('authenticated');
                 router.push("/")
             })
             .catch((error) => {
