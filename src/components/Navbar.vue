@@ -3,13 +3,14 @@
     <div class="navbar-logo">
       <img :src="icon" alt="icon">
     </div>
-
+    <p v-if="isLoggedIn">Welcome {{ displayName }}.</p>
     <div class="nav-menu">
       <ul>
         <li><router-link to="/"><b>Home</b></router-link></li>
         <li><router-link to="/itemlist"><b>Products</b></router-link></li>
-        <li @click="() => showModal('login')"><b>Login</b></li>
-        <li @click="() => showModal('signup')"><b>Sign up</b></li>
+        <li v-if="isLoggedIn"><router-link to="/" @click="logOut">Log Out</router-link></li>
+        <li v-if="!isLoggedIn" @click="() => showModal('login')"><b>Login</b></li>
+        <li v-if="!isLoggedIn" @click="() => showModal('signup')"><b>Sign up</b></li>
         <li><router-link to="/Checkout"><img :src="cart" alt="icon"></router-link></li>
       </ul>
     </div>
@@ -27,11 +28,37 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Login from '../components/Login.vue';
 import SignUp from '../components/SignUp.vue';
+import { Auth, getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
 
+const isLoggedIn = ref(false)
+const uid = ref("")
+var auth: Auth
+var displayName: string | null
+onMounted(() => {
+  auth = getAuth()
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      isLoggedIn.value = true
+      uid.value = user.uid
+      if (user.displayName)
+        displayName = user.displayName
+      else
+        displayName = user.email
+    }
+    else {
+      isLoggedIn.value = false
+    }
+    console.log("User Logged In: "+ isLoggedIn.value)
+    console.log("User UID: " + uid.value)
+  })
+})
 
+const logOut = () => {
+    signOut(auth)
+}
 
 const modal = ref({
   show: false,
@@ -50,7 +77,7 @@ const props = withDefaults(defineProps<NavbarProp>(),
          cart: "",
       })
 
-const showModal = (type) => {
+const showModal = (type: any) => {
   modal.value.show = true;
   modal.value.type = type;
 };
