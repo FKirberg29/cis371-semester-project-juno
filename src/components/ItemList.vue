@@ -29,6 +29,8 @@
       </div>
     </Modal>
   </div>
+  
+  <Footer />
 </template>
 
 <script>
@@ -55,58 +57,59 @@ export default {
   components: {
     Card,
     Modal,
+    Footer,
   },
   data() {
     return {
       items: [
       {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/fish1.png',
+          text: 'Organic Nordic Salmon',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/fish2.jpg',
+          text: 'Organic Sourced Salmon',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/grains1.jpg',
+          text: 'Organic Whole Grains',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/grains2.png',
+          text: 'Organic Rice Flakes',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/veg1.jpg',
+          text: 'Organic Cucumbers',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/veg2.jpg',
+          text: 'Organic Vegetables',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/fruit1.png',
+          text: 'Organic Strawberries',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/fruit2.png',
+          text: 'Organic Blueberries',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/drink1.png',
+          text: 'Organic Coconut Water',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/drink2.png',
+          text: 'Organic Mango Juice',
           description: 'description',
         },
       ],
@@ -131,19 +134,29 @@ export default {
 <style scoped>
 .header-text {
   text-align: center;
+  padding-bottom: 100px;
+  padding-top: 100px;
 }
 
 .card {
   width: 300px;
-  height: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: white;
   border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: -1px 0px 5px rgba(0, 0, 0, 0.1), 0px 3px 1px rgba(0, 0, 0, 0.1);
   margin: 5px;
+  overflow: hidden; 
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 .card-container {
   display: flex;
@@ -153,6 +166,12 @@ export default {
   margin: 0 auto;
   margin-top: 30px;
   gap: 50px;
+}
+
+.card h3 {
+  font-size: 20px; 
+  line-height: 5;
+  margin-top: 10px; 
 }
 
 @media (max-width: 800px) {
@@ -230,6 +249,12 @@ export default {
 .modal-description button:hover {
   background-color: #77a179;
   cursor: pointer;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 </style>

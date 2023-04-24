@@ -83,12 +83,12 @@
   }
   
   .modal-footer {
-    padding: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: space-evenly;
-    border-top: 1px solid #eee;
-  }
+  padding: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
   
   button {
     background-color: #98d485;
