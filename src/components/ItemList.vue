@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <Modal v-if="selectedItem" :selectedItem="selectedItem" @close="closeModal">
+    <Modal v-if="selectedItem" :selectedItem="selectedItem" @close="closeModal" v-on:add="addToCart">
       <div class="modal-content">
         <div class="image-container">
           <img :src="selectedItem.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
@@ -36,8 +36,10 @@
 </template>
 
 <script>
+import { computed, ref, watchEffect } from 'vue';
+import { collection, doc, setDoc, getDoc, getDocs, addDoc } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
-import { getProducts } from '../firebase';
+import { getProducts, auth, db, uid } from '../firebase';
 import Card from './Card.vue';
 import Modal from './Modal.vue';
 import Footer from './Footer.vue';
@@ -56,6 +58,11 @@ export default {
       selectedItem: null,
     };
   },
+  computed: {
+    isLoggedIn() {
+      return computed(() => auth.currentUser !== null);
+    },
+  },
   methods: {
     showModal(item) {
       this.selectedItem = item;
@@ -66,6 +73,20 @@ export default {
     addToCart() {
       // Implement add to cart functionality here
       console.log('Add to cart clicked');
+      
+      //If a user is logged in send the data to Firebase using the uid.
+      if (this.isLoggedIn.value) {
+        const docData = {
+        ID: this.selectedItem.id,
+        image: this.selectedItem.image,
+        text: this.selectedItem.text,
+        description: this.selectedItem.description,
+        price: this.selectedItem.price
+        }
+        const addedProduct = collection(db, "customers", uid.value, "cart")
+        addDoc(addedProduct, docData);
+        console.log(docData.text + " successfully added to " + uid.value + "'s cart")
+      }
     },
   },
   created() {

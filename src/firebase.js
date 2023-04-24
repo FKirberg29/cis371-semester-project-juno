@@ -15,7 +15,11 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
+const isLoggedIn = ref(false)
 const auth = getAuth();
+const uid = ref("");
+var displayName = ref("");
+
 const db = getFirestore();
 
 const cart = ref([]);
@@ -67,10 +71,17 @@ async function getUserCart(userId) {
   
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      isLoggedIn.value = true;
+      uid.value = user.uid
+      if (user.displayName)
+        displayName = user.displayName
+      else
+        displayName = user.email
       getUserCart(user.uid);
     } else {
+      isLoggedIn.value = false;
       cart.value = [];
     }
   });
   
-  export { auth, db, cart, getUserCart, saveUserCart, getProducts };
+  export { auth, db, cart, isLoggedIn, uid, displayName, getUserCart, saveUserCart, getProducts };
