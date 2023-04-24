@@ -11,19 +11,21 @@
         :key="index"
         @click="showModal(item)"
       >
-        <img :src="item.image" alt="product image" />
+        <img :src="item.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
         <h3>{{ item.text }}</h3>
+        <p>Price: ${{ item.price }}</p>
       </div>
     </div>
 
-    <Modal v-if="selectedItem" @close="closeModal">
+    <Modal v-if="selectedItem" :selectedItem="selectedItem" @close="closeModal">
       <div class="modal-content">
         <div class="image-container">
-          <img :src="selectedItem.image" alt="product image" />
+          <img :src="selectedItem.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
         </div>
         <div class="description-container">
           <h2>{{ selectedItem.text }}</h2>
           <p>{{ selectedItem.description }}</p>
+          <p>Price: ${{ selectedItem.price }}</p>
           <button @click="addToCart">Add to Cart</button>
         </div>
       </div>
@@ -66,51 +68,61 @@ export default {
           image: 'src/assets/fish1.png',
           text: 'Organic Nordic Salmon',
           description: 'description',
+          price: 3.99
         },
         {
           image: 'src/assets/fish2.jpg',
           text: 'Organic Sourced Salmon',
           description: 'description',
+          price: 2.99
         },
         {
           image: 'src/assets/grains1.jpg',
           text: 'Organic Whole Grains',
           description: 'description',
+          price: 1.99
         },
         {
-          image: 'src/assets/grains2.png',
-          text: 'Organic Rice Flakes',
+          image: 'src/assets/carrots.jpg',
+          text: 'Fresh Carrots',
           description: 'description',
+          price: 2.99
         },
         {
-          image: 'src/assets/veg1.jpg',
-          text: 'Organic Cucumbers',
+          image: 'src/assets/salmon.jpg',
+          text: 'Fresh Salmon',
           description: 'description',
+          price: 12.99
         },
         {
-          image: 'src/assets/veg2.jpg',
-          text: 'Organic Vegetables',
+          image: 'src/assets/cod.jpg',
+          text: 'Fresh Cod',
           description: 'description',
+          price: 11.99
         },
         {
-          image: 'src/assets/fruit1.png',
-          text: 'Organic Strawberries',
+          image: 'src/assets/frenchbread.jpg',
+          text: 'Fresh French Bread',
           description: 'description',
+          price: 5.99
         },
         {
-          image: 'src/assets/fruit2.png',
-          text: 'Organic Blueberries',
+          image: 'src/assets/bread.jpg',
+          text: 'Fresh Whole Grain Bread',
           description: 'description',
+          price: 7.99
         },
         {
-          image: 'src/assets/drink1.png',
-          text: 'Organic Coconut Water',
+          image: 'src/assets/lemonade.jpg',
+          text: 'Fresh Lemonade',
           description: 'description',
+          price: 4.99
         },
         {
-          image: 'src/assets/drink2.png',
-          text: 'Organic Mango Juice',
+          image: 'src/assets/orangejuice.jpg',
+          text: 'Fresh Orange Juice',
           description: 'description',
+          price: 3.99
         },
       ],
       selectedItem: null,
