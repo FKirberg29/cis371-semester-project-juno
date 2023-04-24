@@ -65,20 +65,20 @@ export default {
     return {
       items: [
       {
-          image: 'src/assets/fish1.png',
-          text: 'Organic Nordic Salmon',
+          image: 'src/assets/apples.jpg',
+          text: 'Fresh Apples',
           description: 'description',
           price: 3.99
         },
         {
-          image: 'src/assets/fish2.jpg',
-          text: 'Organic Sourced Salmon',
+          image: 'src/assets/grapes.jpg',
+          text: 'Fresh Grapes',
           description: 'description',
           price: 2.99
         },
         {
-          image: 'src/assets/grains1.jpg',
-          text: 'Organic Whole Grains',
+          image: 'src/assets/broccoli.jpg',
+          text: 'Fresh Broccoli',
           description: 'description',
           price: 1.99
         },
