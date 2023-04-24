@@ -4,13 +4,14 @@
         <div class="modal-container">
           <div class="modal-header">
             <slot name="header">
-              Product Title
+              {{selectedItem.text}}
             </slot>
           </div>
           <div class="modal-body">
             <slot name="body">
-              Product Image
+              <img :src="selectedItem.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
             </slot>
+            <p>Price: ${{ selectedItem.price }}</p>
           </div>
           <div class="modal-footer">
             <slot name="footer">
@@ -26,6 +27,7 @@
   <script>
   export default {
     name: 'Modal',
+    props: ['selectedItem'],
     mounted() {
       document.addEventListener('keydown', this.onEsc);
     },
@@ -85,7 +87,7 @@
   .modal-footer {
     padding: 16px;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: space-evenly;
     border-top: 1px solid #eee;
   }
