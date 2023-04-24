@@ -44,7 +44,6 @@ async function getProducts() {
     // for (let i = 0; i < arrayOfProducts.length; i++) {
     //   console.log(arrayOfProducts[i])
     // }
-
     return arrayOfProducts;
   }
 

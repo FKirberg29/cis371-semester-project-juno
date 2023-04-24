@@ -7,8 +7,8 @@
     <div class="card-container">
       <div
         class="card"
-        v-for="(item, index) in items"
-        :key="index"
+        v-for="item in products"
+        :key="item.id"
         @click="showModal(item)"
       >
         <img :src="item.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
@@ -50,74 +50,9 @@ export default {
     Modal,
     Footer,
   },
-  created() {
-    // console.log(getProducts());
-    // const list = getProducts();
-  },
   data() {
     return {
-      items: [
-      {
-          image: 'src/assets/apples.jpg',
-          text: 'Fresh Apples',
-          description: 'description',
-          price: 3.99
-        },
-        {
-          image: 'src/assets/grapes.jpg',
-          text: 'Fresh Grapes',
-          description: 'description',
-          price: 2.99
-        },
-        {
-          image: 'src/assets/broccoli.jpg',
-          text: 'Fresh Broccoli',
-          description: 'description',
-          price: 1.99
-        },
-        {
-          image: 'src/assets/carrots.jpg',
-          text: 'Fresh Carrots',
-          description: 'description',
-          price: 2.99
-        },
-        {
-          image: 'src/assets/salmon.jpg',
-          text: 'Fresh Salmon',
-          description: 'description',
-          price: 12.99
-        },
-        {
-          image: 'src/assets/cod.jpg',
-          text: 'Fresh Cod',
-          description: 'description',
-          price: 11.99
-        },
-        {
-          image: 'src/assets/frenchbread.jpg',
-          text: 'Fresh French Bread',
-          description: 'description',
-          price: 5.99
-        },
-        {
-          image: 'src/assets/bread.jpg',
-          text: 'Fresh Whole Grain Bread',
-          description: 'description',
-          price: 7.99
-        },
-        {
-          image: 'src/assets/lemonade.jpg',
-          text: 'Fresh Lemonade',
-          description: 'description',
-          price: 4.99
-        },
-        {
-          image: 'src/assets/orangejuice.jpg',
-          text: 'Fresh Orange Juice',
-          description: 'description',
-          price: 3.99
-        },
-      ],
+      products: [],
       selectedItem: null,
     };
   },
@@ -132,6 +67,17 @@ export default {
       // Implement add to cart functionality here
       console.log('Add to cart clicked');
     },
+  },
+  created() {
+    getProducts().then((products) => {
+      products.sort((a, b) => {
+        if (a.id < b.id) { return -1; }
+        if (a.id > b.id) { return 1;  }
+        return 0;
+      });
+      // console.log(products);
+      this.products = products;
+    });
   },
 };
 </script>
