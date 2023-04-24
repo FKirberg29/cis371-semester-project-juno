@@ -11,7 +11,7 @@
         :key="index"
         @click="showModal(item)"
       >
-        <img :src="item.image" alt="product image" />
+        <img :src="item.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
         <h3>{{ item.text }}</h3>
       </div>
     </div>
@@ -19,7 +19,7 @@
     <Modal v-if="selectedItem" @close="closeModal">
       <div class="modal-content">
         <div class="image-container">
-          <img :src="selectedItem.image" alt="product image" />
+          <img :src="selectedItem.image" style="width:250px;height:200px; object-fit: cover;" alt="product image" />
         </div>
         <div class="description-container">
           <h2>{{ selectedItem.text }}</h2>
@@ -60,53 +60,53 @@ export default {
     return {
       items: [
       {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/apples.jpg',
+          text: 'Fresh Apples',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/grapes.jpg',
+          text: 'Fresh Grapes',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/broccoli.jpg',
+          text: 'Fresh Broccoli',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/carrots.jpg',
+          text: 'Fresh Carrots',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/salmon.jpg',
+          text: 'Fresh Salmon',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/cod.jpg',
+          text: 'Fresh Cod',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/frenchbread.jpg',
+          text: 'Fresh French Bread',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/bread.jpg',
+          text: 'Fresh Whole Grain Bread',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/lemonade.jpg',
+          text: 'Fresh Lemonade',
           description: 'description',
         },
         {
-          image: 'image',
-          text: 'product',
+          image: 'src/assets/orangejuice.jpg',
+          text: 'Fresh Orange Juice',
           description: 'description',
         },
       ],
