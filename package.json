@@ -1,5 +1,6 @@
 {
-  "name": "cs371-wordle",
+  "homepage" : "https://FKirberg29.github.io/",
+  "name": "cs371-semester-project-juno",
   "private": true,
   "version": "0.0.0",
   "type": "module",
