@@ -51,6 +51,25 @@ async function getProducts() {
     return arrayOfProducts;
   }
 
+  async function getNumProductsSold() {
+    const querySnapshot = await getDocs(collection(db, "numOfProductsSold"));
+    const array = [];
+    querySnapshot.forEach((doc) => {
+      //doc.data() is never undefined for query doc snapshots
+      var quantity = doc.get("quantity")
+
+      let product = {
+          quantity: quantity
+      }
+      array.push(product)
+    });
+
+    // for (let i = 0; i < array.length; i++) {
+    //   console.log(array[i])
+    // }
+    return array;
+  }
+
 async function getUserCart(userId) {
     const cartRef = doc(db, 'carts', userId);
     const cartDoc = await getDoc(cartRef);
@@ -84,4 +103,4 @@ async function getUserCart(userId) {
     }
   });
   
-  export { auth, db, cart, isLoggedIn, uid, displayName, getUserCart, saveUserCart, getProducts };
+  export { auth, db, cart, isLoggedIn, uid, displayName, getUserCart, saveUserCart, getProducts, getNumProductsSold };

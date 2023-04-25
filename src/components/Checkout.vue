@@ -33,9 +33,9 @@
 <script>
 import { computed, ref, watchEffect } from 'vue';
 import { auth, cart, saveUserCart } from '../firebase';
-import { getProducts, db, uid } from '../firebase';
+import { getProducts, db, uid, getNumProductsSold } from '../firebase';
 import { onSnapshot, collection } from 'firebase/firestore';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
 import PaymentModal from './PaymentModal.vue';
 
 
@@ -44,10 +44,17 @@ export default {
   components: {
     PaymentModal,
   },
+  data() {
+    return {
+      products: []
+    };
+  },
   setup() {
   const isLoggedIn = computed(() => auth.currentUser !== null);
 
   const paymentModal = ref(false);
+
+  const quantities = [];
 
   function openPaymentModal() {
     paymentModal.value = true;
@@ -59,8 +66,28 @@ export default {
   async function confirmPayment() {
   console.log("Payment confirmed");
 
+  // Collect # of products sold info
   for (const item of cart.value) {
+    if (!quantities[item.ID]) {
+      quantities[item.ID] = 0;
+    }
+    quantities[item.ID] += item.quantity;
     await removeFromCart(item);
+  }
+
+  console.log(quantities);
+  // Update the database with the quantities
+  for (const id in quantities) {
+    const itemRef = doc(db, 'numOfProductsSold', id.toString());
+    const existingItem = await getDoc(itemRef);
+    if (existingItem.exists()) {
+      const data = existingItem.data();
+      const quantity = data.quantity || 0;
+      const newData = { ...data, quantity: quantity + quantities[id] };
+      await setDoc(itemRef, newData);
+    } else {
+      await setDoc(itemRef, { id: id, quantity: quantities[id] });
+    }
   }
   
   closePaymentModal();
@@ -94,7 +121,8 @@ setTimeout(() => {
     openPaymentModal,
     closePaymentModal,
     paymentModal,
-    confirmPayment
+    confirmPayment,
+    quantities
   };
 },
 
@@ -106,6 +134,11 @@ computed: {
     });
     return total.toFixed(2);
   }
+},
+created() {
+    getNumProductsSold().then((products) => {
+      this.products = products;
+    });
 },
 
 }
