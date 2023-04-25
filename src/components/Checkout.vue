@@ -1,4 +1,7 @@
 <template>
+  <div class="text-banner">
+  <p>Thank you for your payment!</p>
+</div>
   <div class="checkout-cart">
     <h2>Checkout Cart</h2>
     <div v-if="cart.length > 0">
@@ -16,6 +19,10 @@
       <div class="total">
         Total: {{ calculateTotal }}
       </div>
+      <div class="checkout-payment">
+        <button class="checkout-payment-btn" @click="openPaymentModal">Pay Now</button>
+        <PaymentModal v-show="paymentModal" @close="closePaymentModal" @confirm="confirmPayment" />
+      </div>
     </div>
     <div v-else>
       <p>No items in cart</p>
@@ -29,12 +36,42 @@ import { auth, cart, saveUserCart } from '../firebase';
 import { getProducts, db, uid } from '../firebase';
 import { onSnapshot, collection } from 'firebase/firestore';
 import { deleteDoc, doc } from 'firebase/firestore';
+import PaymentModal from './PaymentModal.vue';
 
 
 
 export default {
+  components: {
+    PaymentModal,
+  },
   setup() {
   const isLoggedIn = computed(() => auth.currentUser !== null);
+
+  const paymentModal = ref(false);
+
+  function openPaymentModal() {
+    paymentModal.value = true;
+  }
+
+  function closePaymentModal() {
+    paymentModal.value = false;
+  }
+  async function confirmPayment() {
+  console.log("Payment confirmed");
+
+  for (const item of cart.value) {
+    await removeFromCart(item);
+  }
+  
+  closePaymentModal();
+
+const textBanner = document.querySelector('.text-banner');
+textBanner.classList.add('show');
+setTimeout(() => {
+  textBanner.classList.remove('show');
+}, 3000);
+
+}
 
   watchEffect(() => {
     if (isLoggedIn.value) {
@@ -53,7 +90,11 @@ export default {
   return {
     isLoggedIn,
     cart,
-    removeFromCart
+    removeFromCart,
+    openPaymentModal,
+    closePaymentModal,
+    paymentModal,
+    confirmPayment
   };
 },
 
@@ -63,7 +104,7 @@ computed: {
     this.cart.forEach(item => {
       total += item.price * item.quantity;
     });
-    return total;
+    return total.toFixed(2);
   }
 },
 
@@ -71,6 +112,28 @@ computed: {
 </script>
   
 <style>
+.text-banner {
+  position: fixed;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #a2d9a5;
+  color: #fff;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: top 0.5s ease-out;
+}
+
+.text-banner.show {
+  top: 0;
+}
+
 .checkout-cart {
   margin: 20px;
   margin-top: 300px;
@@ -110,6 +173,30 @@ computed: {
 .checkout-btn:hover {
   background-color: black;
   cursor: pointer;
+}
+.checkout-payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkout-payment-btn {
+  width: 200px;
+  height: 40px;
+  background-color: #98d485;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+.checkout-payment-btn:hover {
+cursor: pointer;
+background-color: #77a179;
+}
+.total {
+  font-size: 25px;
+  padding-top: 20px;
 }
 </style>
   

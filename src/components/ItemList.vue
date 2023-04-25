@@ -71,36 +71,42 @@ export default {
       this.selectedItem = null;
     },
     addToCart() {
-      // Implement add to cart functionality here
-      console.log('Add to cart clicked');
-      
-      // If a user is logged in send the data to Firebase using the uid.
-      if (this.isLoggedIn.value) {
-        const docData = {
-          ID: this.selectedItem.id,
-          image: this.selectedItem.image,
-          text: this.selectedItem.text,
-          description: this.selectedItem.description,
-          price: this.selectedItem.price,
-          quantity: 1
-        }
-        const addedProduct = collection(db, "customers", uid.value, "cart")
-        addDoc(addedProduct, docData);
-        console.log(docData.text + " successfully added to " + uid.value + "'s cart")
-        
-        // Update the cart ref
-        const existingItem = cart.value.find(i => i.text === docData.text);
+  console.log('Add to cart clicked');
 
-        if (existingItem) {
-          existingItem.quantity += 1;
-        } else {
-          cart.value.push({ ...docData });
-        }
-      }
+  // If a user is logged in, send the data to Firebase using their UID
+  if (this.isLoggedIn.value) {
+    const docData = {
+      ID: this.selectedItem.id,
+      image: this.selectedItem.image,
+      text: this.selectedItem.text,
+      description: this.selectedItem.description,
+      price: this.selectedItem.price,
+      quantity: 1
+    };
 
-      // Close the modal after adding the item to the cart
-      this.closeModal();
-    },
+    // Check if the item is already in the cart
+    const existingItem = cart.value.find(item => item.ID === docData.ID);
+
+    if (existingItem) {
+      // If it is, update its quantity
+      existingItem.quantity++;
+      const itemRef = doc(db, 'customers', uid.value, 'cart', existingItem.id);
+      setDoc(itemRef, existingItem);
+    } else {
+      // If it's not, add it to the cart as a new item
+      addDoc(collection(db, 'customers', uid.value, 'cart'), docData)
+        .then(docRef => {
+          const newItem = { ...docData, id: docRef.id };
+          cart.value.push(newItem);
+        })
+        .catch(error => console.error('Error adding document: ', error));
+    }
+  }
+
+  // Close the modal after adding the item to the cart
+  this.closeModal();
+},
+
 
 
   },
