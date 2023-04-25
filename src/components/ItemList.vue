@@ -26,7 +26,7 @@
           <h2>{{ selectedItem.text }}</h2>
           <p>{{ selectedItem.description }}</p>
           <p>Price: ${{ selectedItem.price }}</p>
-          <button @click="addToCart">Add to Cart</button>
+          <button @click="$emit('add', selectedItem)">Add to Cart</button>
         </div>
       </div>
     </Modal>
@@ -39,7 +39,7 @@
 import { computed, ref, watchEffect } from 'vue';
 import { collection, doc, setDoc, getDoc, getDocs, addDoc } from 'firebase/firestore';
 import { initializeApp } from "firebase/app";
-import { getProducts, auth, db, uid } from '../firebase';
+import { getProducts, auth, db, uid, cart } from '../firebase';
 import Card from './Card.vue';
 import Modal from './Modal.vue';
 import Footer from './Footer.vue';
@@ -74,20 +74,35 @@ export default {
       // Implement add to cart functionality here
       console.log('Add to cart clicked');
       
-      //If a user is logged in send the data to Firebase using the uid.
+      // If a user is logged in send the data to Firebase using the uid.
       if (this.isLoggedIn.value) {
         const docData = {
-        ID: this.selectedItem.id,
-        image: this.selectedItem.image,
-        text: this.selectedItem.text,
-        description: this.selectedItem.description,
-        price: this.selectedItem.price
+          ID: this.selectedItem.id,
+          image: this.selectedItem.image,
+          text: this.selectedItem.text,
+          description: this.selectedItem.description,
+          price: this.selectedItem.price,
+          quantity: 1
         }
         const addedProduct = collection(db, "customers", uid.value, "cart")
         addDoc(addedProduct, docData);
         console.log(docData.text + " successfully added to " + uid.value + "'s cart")
+        
+        // Update the cart ref
+        const existingItem = cart.value.find(i => i.text === docData.text);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.value.push({ ...docData });
+        }
       }
+
+      // Close the modal after adding the item to the cart
+      this.closeModal();
     },
+
+
   },
   created() {
     getProducts().then((products) => {
