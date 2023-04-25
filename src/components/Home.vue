@@ -42,7 +42,7 @@
 
   <div class="divider-container">
   <div class="divider">
-    <img src="src/assets/organic.jpg" alt="Image 1" class="divider-image">
+    <img src="src/assets/organic.png" alt="Image 1" class="divider-image">
     <div class="divider-text">USA Certified</div>
   </div>
   <div class="divider">
