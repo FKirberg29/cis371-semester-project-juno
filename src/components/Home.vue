@@ -54,10 +54,8 @@
     <div class="divider-text">Mexico Certified</div>
   </div>
 </div>
-
-
-  <Footer />
   
+  <Footer />
 </template>
   
 <script>

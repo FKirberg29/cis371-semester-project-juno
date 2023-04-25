@@ -1,12 +1,11 @@
 <template>
-
-<Navbar :icon="icon" :cart="cart"/>
-<hr>
-<RouterView></RouterView>
-<div width="100" height="100">
-<Chart></Chart>
-</div>
+  <Navbar :icon="icon" :cart="cart" />
+  <hr />
+  <RouterView></RouterView>
+  <Chart></Chart>
+  
 </template>
+
 
 <script setup lang="ts">
 import Navbar from './components/Navbar.vue';
