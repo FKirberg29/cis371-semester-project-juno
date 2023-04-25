@@ -2,9 +2,8 @@
   <Navbar :icon="icon" :cart="cart" />
   <hr />
   <RouterView></RouterView>
-  <Chart></Chart>
-  
 </template>
+
 
 
 <script setup lang="ts">

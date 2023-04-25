@@ -54,19 +54,25 @@
     <div class="divider-text">Mexico Certified</div>
   </div>
 </div>
-  
+<hr>
+<div class="headertext">
+  <h1>Check out our popular products!</h1>
+</div>
+<Chart></Chart>
   <Footer />
 </template>
   
 <script>
 import Card from './Card.vue';
 import Footer from './Footer.vue';
+import Chart from './Chart.vue';
 
 export default {
   name: 'Home',
   components: {
     Card,
     Footer,
+    Chart,
   },
   data() {
     return {
@@ -286,6 +292,11 @@ hr {
   margin-top: 10px;
   font-size: 24px;
   font-weight: bold;
+}
+.headertext {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
